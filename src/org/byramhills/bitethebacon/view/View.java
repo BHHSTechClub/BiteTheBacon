@@ -7,6 +7,9 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.byramhills.bitethebacon.view.game.GameScreen;
+import org.byramhills.bitethebacon.view.start.StartScreen;
+
 public class View extends JFrame {
     private static final long serialVersionUID = -265435613379508221L;
     private static final String TITLE = "Bite the Bacon";

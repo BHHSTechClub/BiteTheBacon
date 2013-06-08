@@ -1,4 +1,6 @@
-package org.byramhills.bitethebacon.view;
+package org.byramhills.bitethebacon.view.game;
+
+import org.byramhills.bitethebacon.view.Screen;
 
 
 public class GameScreen extends Screen {
