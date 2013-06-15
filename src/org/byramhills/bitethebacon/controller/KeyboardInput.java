@@ -7,12 +7,13 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 
+import org.byramhills.bitethebacon.model.Model;
 import org.byramhills.bitethebacon.view.game.Player;
 
 public class KeyboardInput {
     // initializes the keyboard-based input controls for the game
     public static void initKeys(InputMap inputMap, ActionMap actionMap, Player player1, Player player2) {
-        final String[] keys = {"W", "S", "UP", "DOWN"}; // string representations of the keys
+        final String[] keys = Model.getModel().getOptions().getKeyboardLayout().getPlayerControls(); // string representations of the keys
         final Player[] players = {player1, player1, player2, player2}; // the players affected by each key
         final boolean[] upDown = {true, false, true, false}; // the response (up or down) to each key
         

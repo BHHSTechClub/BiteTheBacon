@@ -12,7 +12,7 @@ import javax.swing.JButton;
 
 public class StartScreenButton extends JButton {
     private static final long serialVersionUID = -1095344357376019554L;
-    private final String text; // text to display on the button
+    private String text; // text to display on the button
     private final Color textColor; // color of the text to display
     private final Font textFont; // size of text to display
     private final BufferedImage image; // image to display
@@ -105,5 +105,15 @@ public class StartScreenButton extends JButton {
             int sw = fm.stringWidth(text);
             g.drawString(text, width / 2 - sw / 2, height / 2 + fm.getHeight() / 4);
         }
+    }
+    
+    @Override
+    public void setText(String text) {
+        this.text = text;
+    }
+    
+    @Override
+    public String getText() {
+        return text;
     }
 }

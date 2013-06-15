@@ -1,6 +1,8 @@
 package org.byramhills.bitethebacon.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
@@ -15,6 +17,7 @@ public class View extends JFrame {
     private static final String TITLE = "Bite the Bacon";
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 700;
+    private static final MenuRenderingOptions style = new MenuRenderingOptions(300, 90, 150, 10, Color.BLUE, Color.WHITE, new Font("Sans-Serif", Font.PLAIN, 44));
     private Screen currentScreen;
     
     public View() {
@@ -25,7 +28,7 @@ public class View extends JFrame {
         setLayout(null);
         setResizable(false);
         
-        currentScreen = new StartScreen(TITLE, 0, 0, WIDTH, HEIGHT);
+        currentScreen = new StartScreen(TITLE, 0, 0, WIDTH, HEIGHT, style);
         add(currentScreen);
         
         setVisible(true);
@@ -36,9 +39,14 @@ public class View extends JFrame {
     }
     
     public void showOptions() {
-        replaceScreen(new OptionsScreen(0, 0, WIDTH, HEIGHT));
+        replaceScreen(new OptionsScreen(0, 0, WIDTH, HEIGHT, style));
     }
     
+    public void showTitle() {
+        replaceScreen(new StartScreen(TITLE, 0, 0, WIDTH, HEIGHT, style));
+    }
+    
+    // replace the currently visible screen with a new screen
     private void replaceScreen(Screen next) {
         remove(currentScreen);
         currentScreen = next;

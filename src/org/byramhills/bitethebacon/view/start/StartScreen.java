@@ -1,6 +1,5 @@
 package org.byramhills.bitethebacon.view.start;
 
-import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -9,6 +8,7 @@ import javax.swing.JLabel;
 import org.byramhills.bitethebacon.controller.FileSystem;
 import org.byramhills.bitethebacon.controller.actions.OptionsAction;
 import org.byramhills.bitethebacon.controller.actions.PlayAction;
+import org.byramhills.bitethebacon.view.MenuRenderingOptions;
 import org.byramhills.bitethebacon.view.Screen;
 
 public class StartScreen extends Screen {
@@ -16,36 +16,32 @@ public class StartScreen extends Screen {
     
     private static final int TITLE_HEIGHT = 95;
     
-    private static final int BUTTON_WIDTH = 300;
-    private static final int BUTTON_HEIGHT = 90;
-    private static final int BUTTON_SPACING = 150;
-    private static final int BUTTON_ROUNDNESS = 10;
-    
-    public StartScreen(String titleText, int x, int y, int width, int height) {
+    public StartScreen(String titleText, int x, int y, int width, int height, MenuRenderingOptions options) {
         super(x, y, width, height);
         
-        setBackground(Color.WHITE);
+        setBackground(options.getBackgroundColor());
         
         JLabel title = new JLabel(titleText);
         Font font;
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, FileSystem.getFile("TasteTheBacon.ttf")).deriveFont(70.0F);
         } catch (Exception e) {
-            font = new Font("Sans-Serif", Font.PLAIN, 44);
+            font = options.getButtonFont();
+            font = font.deriveFont((float) font.getSize() + 10);
         }
         title.setFont(font);
         int sw = title.getFontMetrics(font).stringWidth(titleText);
-        title.setBounds(width / 2 - sw / 2, height / 2 - TITLE_HEIGHT / 2 - BUTTON_SPACING, sw, TITLE_HEIGHT);
+        title.setBounds(width / 2 - sw / 2, height / 2 - TITLE_HEIGHT / 2 - options.getButtonSpacing(), sw, TITLE_HEIGHT);
         add(title);
         
-        JButton play = new StartScreenButton(FileSystem.getImage("play_bacon.jpg"), BUTTON_ROUNDNESS, Color.BLUE);
-        play.setBounds(width / 2 - BUTTON_WIDTH / 2, height / 2 - BUTTON_HEIGHT / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        JButton play = new StartScreenButton(FileSystem.getImage("play_bacon.jpg"), options.getButtonRoundness(), options.getButtonColor());
+        play.setBounds(width / 2 - options.getButtonWidth() / 2, height / 2 - options.getButtonHeight() / 2, options.getButtonWidth(), options.getButtonHeight());
         play.addActionListener(new PlayAction());
         add(play);
         
-        JButton options = new StartScreenButton("Options", new Font("Sans-Serif", Font.PLAIN, 44), BUTTON_ROUNDNESS, Color.BLUE);
-        options.setBounds(width / 2 - BUTTON_WIDTH / 2, height / 2 - BUTTON_HEIGHT / 2 + BUTTON_SPACING, BUTTON_WIDTH, BUTTON_HEIGHT);
-        options.addActionListener(new OptionsAction());
-        add(options);
+        JButton optionsButton = new StartScreenButton("Options", options.getButtonFont(), options.getButtonRoundness(), options.getButtonColor());
+        optionsButton.setBounds(width / 2 - options.getButtonWidth() / 2, height / 2 - options.getButtonHeight() / 2 + options.getButtonSpacing(), options.getButtonWidth(), options.getButtonHeight());
+        optionsButton.addActionListener(new OptionsAction());
+        add(optionsButton);
     }
 }
