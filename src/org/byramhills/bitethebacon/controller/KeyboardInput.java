@@ -57,11 +57,7 @@ public class KeyboardInput {
                 @Override
                 public void run() {
                     while(isDown) {
-                        if(isUp) {
-                            subject.moveUp();
-                        } else {
-                            subject.moveDown();
-                        }
+                        subject.moveVert(isUp);
                         try {
                             Thread.sleep(2);
                         } catch (InterruptedException e) {

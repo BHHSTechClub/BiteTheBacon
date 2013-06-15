@@ -21,12 +21,13 @@ public class GameScreen extends Screen {
     	super(x, y, width, height);
         setBackground(Color.WHITE);
         
-        player1 = new Player("player1.jpeg", 600, 500);
-        player2 = new Player("player2.jpeg", 300, 500);
+        player1 = new Player("player1.jpeg", 600, 500, this);
+        player2 = new Player("player2.jpeg", 300, 500, this);
         
         KeyboardInput.initKeys(getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW), getActionMap(), player1, player2);
     }
     
+    @Override
     public void paint(Graphics g)
     {
       super.paint(g);
@@ -41,7 +42,10 @@ public class GameScreen extends Screen {
       
       g2.drawImage(player1.getImage(), player1.getX(), player1.getY(), this);
       g2.drawImage(player2.getImage(), player2.getX(), player2.getY(), this);
-      //TODO: paint the environment, make a bacon class for the bacon slide, add movements to blobs
-      repaint();
+      //TODO: paint the environment, make a bacon class for the bacon slide
+    }
+    
+    public void onPlayerMove(Player player) {
+        repaint();
     }
 }
