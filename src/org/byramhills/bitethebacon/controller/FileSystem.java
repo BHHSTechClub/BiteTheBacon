@@ -1,4 +1,4 @@
-package org.byramhills.bitethebacon.controller.actions;
+package org.byramhills.bitethebacon.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

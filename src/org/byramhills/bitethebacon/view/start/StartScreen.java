@@ -6,7 +6,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import org.byramhills.bitethebacon.controller.actions.FileSystem;
+import org.byramhills.bitethebacon.controller.FileSystem;
 import org.byramhills.bitethebacon.controller.actions.PlayAction;
 import org.byramhills.bitethebacon.view.Screen;
 
@@ -22,6 +22,8 @@ public class StartScreen extends Screen {
     
     public StartScreen(String titleText, int x, int y, int width, int height) {
         super(x, y, width, height);
+        
+        setBackground(Color.WHITE);
         
         JLabel title = new JLabel(titleText);
         Font font;

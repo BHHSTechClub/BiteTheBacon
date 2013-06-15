@@ -33,7 +33,7 @@ public class View extends JFrame {
     
     public void startGame() {
         remove(startScreen);
-        add(new GameScreen(0, 0, WIDTH, HEIGHT)); //adds JPanel game
+        add(new GameScreen(this, 0, 0, WIDTH, HEIGHT)); //adds JPanel game
         repaint();
     }
     
