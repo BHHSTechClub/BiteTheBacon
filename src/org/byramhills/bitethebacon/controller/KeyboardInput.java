@@ -10,29 +10,35 @@ import javax.swing.KeyStroke;
 import org.byramhills.bitethebacon.view.game.Player;
 
 public class KeyboardInput {
-    
+    // initializes the keyboard-based input controls for the game
     public static void initKeys(InputMap inputMap, ActionMap actionMap, Player player1, Player player2) {
-        final String[] keys = {"W", "S", "UP", "DOWN"};
-        final String[] ids = {"p1 up move", "p1 down move", "p2 up move", "p2 down move"};
-        final MoveAction[] actions = {new MoveAction(player1, true), new MoveAction(player1, false), new MoveAction(player2, true), new MoveAction(player2, false)};
+        final String[] keys = {"W", "S", "UP", "DOWN"}; // string representations of the keys
+        final Player[] players = {player1, player1, player2, player2}; // the players affected by each key
+        final boolean[] upDown = {true, false, true, false}; // the response (up or down) to each key
         
-        assert keys.length == ids.length;
-        assert ids.length == actions.length;
+        // just want to double-check our work
+        assert keys.length == players.length;
+        assert players.length == upDown.length;
+        
         for(int i=0; i<keys.length; i++) {
-            KeyStroke stroke = KeyStroke.getKeyStroke("pressed " + keys[i]);
-            inputMap.put(stroke, ids[i]);
-            actionMap.put(ids[i], actions[i]);
+            String id = (players[i].equals(player1) ? "p1" : "p2") + " " + (upDown[i] ? "up" : "down") + " move"; // generate a unique id for this control
+            final MoveAction action = new MoveAction(players[i], upDown[i]); // generate an action for the key
             
-            String rID = "released " + ids[i];
+            // action for pressing the key
+            KeyStroke stroke = KeyStroke.getKeyStroke("pressed " + keys[i]);
+            inputMap.put(stroke, id);
+            actionMap.put(id, action);
+            
+            // action for releasing the key
+            String rID = "released " + id; // new id for key release
             KeyStroke release = KeyStroke.getKeyStroke("released " + keys[i]);
             inputMap.put(release, rID);
-            final MoveAction temp = actions[i];
             actionMap.put(rID, new AbstractAction() {
                 private static final long serialVersionUID = -8170481785364139357L;
 
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
-                    temp.isDown = false;
+                    action.isDown = false;
                 }});
         }
     }
@@ -41,7 +47,7 @@ public class KeyboardInput {
         private static final long serialVersionUID = -8199341783549910591L;
         private final Player subject;
         private final boolean isUp;
-        volatile boolean isDown = false;
+        volatile boolean isDown = false; // volatile ensures thread safety
         
         public MoveAction(Player subject, boolean isUp) {
             this.subject = subject;
