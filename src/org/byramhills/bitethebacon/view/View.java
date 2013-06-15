@@ -5,9 +5,9 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import org.byramhills.bitethebacon.view.game.GameScreen;
+import org.byramhills.bitethebacon.view.options.OptionsScreen;
 import org.byramhills.bitethebacon.view.start.StartScreen;
 
 public class View extends JFrame {
@@ -15,7 +15,7 @@ public class View extends JFrame {
     private static final String TITLE = "Bite the Bacon";
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 700;
-    private final JPanel startScreen;
+    private Screen currentScreen;
     
     public View() {
         super(TITLE);
@@ -25,15 +25,24 @@ public class View extends JFrame {
         setLayout(null);
         setResizable(false);
         
-        startScreen = new StartScreen(TITLE, 0, 0, WIDTH, HEIGHT);
-        add(startScreen);
+        currentScreen = new StartScreen(TITLE, 0, 0, WIDTH, HEIGHT);
+        add(currentScreen);
         
         setVisible(true);
     }
     
     public void startGame() {
-        remove(startScreen);
-        add(new GameScreen(this, 0, 0, WIDTH, HEIGHT)); //adds JPanel game
+        replaceScreen(new GameScreen(this, 0, 0, WIDTH, HEIGHT)); //adds JPanel game
+    }
+    
+    public void showOptions() {
+        replaceScreen(new OptionsScreen(0, 0, WIDTH, HEIGHT));
+    }
+    
+    private void replaceScreen(Screen next) {
+        remove(currentScreen);
+        currentScreen = next;
+        add(next);
         repaint();
     }
     

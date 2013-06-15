@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import org.byramhills.bitethebacon.controller.FileSystem;
+import org.byramhills.bitethebacon.controller.actions.OptionsAction;
 import org.byramhills.bitethebacon.controller.actions.PlayAction;
 import org.byramhills.bitethebacon.view.Screen;
 
@@ -41,5 +42,10 @@ public class StartScreen extends Screen {
         play.setBounds(width / 2 - BUTTON_WIDTH / 2, height / 2 - BUTTON_HEIGHT / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
         play.addActionListener(new PlayAction());
         add(play);
+        
+        JButton options = new StartScreenButton("Options", new Font("Sans-Serif", Font.PLAIN, 44), BUTTON_ROUNDNESS, Color.BLUE);
+        options.setBounds(width / 2 - BUTTON_WIDTH / 2, height / 2 - BUTTON_HEIGHT / 2 + BUTTON_SPACING, BUTTON_WIDTH, BUTTON_HEIGHT);
+        options.addActionListener(new OptionsAction());
+        add(options);
     }
 }
